@@ -1236,6 +1236,11 @@
       <!-- Input bar -->
       <div class="input-bar">
         <div class="input-inner">
+            <input type="file" id="image-input" accept="image/*" hidden>
+
+<button class="btn-image" onclick="document.getElementById('image-input').click()">
+📎
+</button>
           <textarea class="chat-input" id="chat-input" placeholder="Pregunta a Leyva IA..." rows="1" autocomplete="off"></textarea>
           <button class="btn-send" id="btn-send" onclick="enviar()">
             <svg id="send-icon" viewBox="0 0 24 24">
