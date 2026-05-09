@@ -15,9 +15,7 @@
         margin: 0;
         padding: 0;
       }
-.hidden-history {
-  display: none;
-}
+
 
 #toggle-history {
   background: transparent;
@@ -26,7 +24,13 @@
   font-size: 22px;
   cursor: pointer;
   margin-bottom: 10px;
+    }
+
+    .hidden-history {
+  transform: translateX(-100%);
+  transition: 0.3s;
 }
+
       /* ── Remove Replit badge — capa CSS (primera línea de defensa) ── */
       #__replco,
       [data-replit-badge],
@@ -1701,7 +1705,7 @@
       renderSidebar();
       chatInput.focus();
       document.getElementById("toggle-history").addEventListener("click", () => {
-  document.getElementById("sidebar-list").classList.toggle("hidden-history");
+ document.querySelector(".sidebar").classList.toggle("hidden-history");
 });
     </script>
   
