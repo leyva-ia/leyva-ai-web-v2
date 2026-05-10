@@ -1627,7 +1627,7 @@
 
       /* ── Chips ── */
       function usarChip(texto) {
-        chatInput.value = texto;
+         = texto;
         chatInput.style.height = "auto";
         chatInput.style.height = Math.min(chatInput.scrollHeight, 160) + "px";
         enviar();
@@ -1635,7 +1635,24 @@
 
       /* ── Send ── */
       async function enviar() {
-        const texto = chatInput.value.trim();
+          const imageInput = document.getElementById("image-input");
+const file = imageInput.files[0];
+
+let imageBase64 = null;
+
+if (file) {
+  const reader = new FileReader();
+
+  imageBase64 = await new Promise((resolve) => {
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
+
+  appendUserMsg(
+    <img src="${imageBase64}" style="max-width:220px;border-radius:12px;margin-top:10px;">
+  );
+}
+        const texto = .trim();
         if (!texto) {
           chatInput.focus();
           return;
@@ -1643,7 +1660,8 @@
 
         hideWelcome();
         appendUserMsg(texto);
-        chatInput.value = "";
+          imageInput.value = "";
+      
         chatInput.style.height = "auto";
         conversationHistory.push({ role: "user", content: texto });
 
@@ -1664,7 +1682,10 @@
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ messages: conversationHistory }),
+    body: JSON.stringify({
+  messages: conversationHistory,
+  image: imageBase64
+}),
             },
           );
 
