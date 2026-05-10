@@ -1677,7 +1677,7 @@
           );
 
           const data = await res.json();
-          const aiText = data?.choices?.[0]?.message?.content;
+       const aiText = data?.respuesta;
           const errorApi = data?.error;
 
           if (aiText) {
