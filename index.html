@@ -1673,7 +1673,7 @@
     );
           const data = await res.json();
           const aiText = data?.choices?.[0]?.message?.content;
-          const errorApi = data?.error;
+        const errorApi = data?.error;
 
           if (aiText) {
             conversationHistory.push({ role: "assistant", content: aiText });
