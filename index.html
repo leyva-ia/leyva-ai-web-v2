@@ -1658,14 +1658,9 @@ if (file) {
           return;
         }
 
-        hideWelcome();
-        appendUserMsg(
-  texto +
-  (imageBase64
-  ? <br><img src="${imageBase64}" style="max-width:220px;border-radius:12px;margin-top:10px;">
-    : "")
-);
-          imageInput.value = "";
+       hideWelcome();
+       appendUserMsg(texto);
+       imageInput.value = "";
       
         chatInput.style.height = "auto";
         conversationHistory.push({ role: "user", content: texto });
