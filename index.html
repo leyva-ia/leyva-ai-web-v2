@@ -1670,10 +1670,10 @@
               method: "POST",
               headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-  messages: conversationHistory,
-  image: imageBase64
-}),
-            },
+  messages: conversationHistory
+ 
+              })
+            }
           );
 
           const data = await res.json();
