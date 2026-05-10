@@ -1636,20 +1636,7 @@
 
       /* ── Send ── */
       async function enviar() {
-          const imageInput = document.getElementById("image-input");
-const file = imageInput.files[0];
-
-let imageBase64 = null;
-
-if (file) {
-  const reader = new FileReader();
-
-  imageBase64 = await new Promise((resolve) => {
-    reader.onload = () => resolve(reader.result);
-    reader.readAsDataURL(file);
-  });
-
-  appendUserMsg(
+          
     
 }
        const texto = chatInput.value.trim();
@@ -1660,7 +1647,7 @@ if (file) {
 
         hideWelcome();
         appendUserMsg(texto);
-          
+        chatInput.value = "";
       
         chatInput.style.height = "auto";
         conversationHistory.push({ role: "user", content: texto });
