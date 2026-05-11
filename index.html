@@ -1539,14 +1539,38 @@
       }
 
       /* ── Append messages ── */
-      function appendUserMsg(text, animate = true) {
-        const row = document.createElement("div");
-        row.className = "message-row";
-        if (!animate) row.style.animation = "none";
-        row.innerHTML = `<div class="msg-user"><div class="msg-user-bubble">${esc(text)}</div></div>`;
-        document.getElementById("messages").appendChild(row);
-        if (animate) scrollToBottom();
-      }
+     function appendUserMsg(text, image = null, animate = true) {
+
+  const row = document.createElement("div");
+  row.className = "message-row";
+
+  if (!animate) row.style.animation = "none";
+
+  let imageHtml = "";
+
+  if (image) {
+    imageHtml = `
+      <img src="${image}" 
+           style="
+             max-width:220px;
+             border-radius:16px;
+             margin-bottom:10px;
+             display:block;
+           ">
+    `;
+  }
+
+  row.innerHTML = `
+    <div class="msg-user">
+      ${imageHtml}
+      <div class="msg-user-bubble">${esc(text)}</div>
+    </div>
+  `;
+
+  document.getElementById("messages").appendChild(row);
+
+  if (animate) scrollToBottom();
+}
 
       function appendThinking() {
         const row = document.createElement("div");
@@ -1684,7 +1708,17 @@ function quitarImagen() {
         }
 
         hideWelcome();
-        appendUserMsg(texto);
+       if (imagenSeleccionada) {
+
+  const previewImage = await convertirImagenABase64(imagenSeleccionada);
+
+  appendUserMsg(texto, previewImage);
+
+} else {
+
+  appendUserMsg(texto);
+
+}
         chatInput.value = "";
       
         chatInput.style.height = "auto";
