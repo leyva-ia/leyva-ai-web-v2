@@ -1723,7 +1723,7 @@ function quitarImagen() {
         chatInput.value = "";
       
         chatInput.style.height = "auto";
-          quitarImagen();
+       
        if (imagenSeleccionada) {
 
   const imagenBase64 = await convertirImagenABase64(imagenSeleccionada);
@@ -1752,7 +1752,7 @@ function quitarImagen() {
   });
 
 }
-
+quitarImagen();
         const btnSend = document.getElementById("btn-send");
         const sendIcon = document.getElementById("send-icon");
         btnSend.disabled = true;
