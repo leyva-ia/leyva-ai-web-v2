@@ -1552,6 +1552,7 @@
     imageHtml = `
       <img src="${image}" 
            style="
+           width:220px;
              max-width:220px;
              border-radius:16px;
              margin-bottom:10px;
@@ -1561,7 +1562,7 @@
   }
 
   row.innerHTML = `
-    <div class="msg-user">
+   <div class="msg-user" style="display:flex; flex-direction:column; align-items:flex-end;">
       ${imageHtml}
       <div class="msg-user-bubble">${esc(text)}</div>
     </div>
