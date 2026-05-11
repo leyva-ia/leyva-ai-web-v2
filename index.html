@@ -1242,6 +1242,7 @@
 <button class="btn-image" onclick="document.getElementById('image-input').click()">
 📎
 </button>
+            <div id="image-preview" style="display:none; margin-bottom:10px;"></div>
           <textarea class="chat-input" id="chat-input" placeholder="Pregunta a Leyva IA..." rows="1" autocomplete="off"></textarea>
           <button class="btn-send" id="btn-send" onclick="enviar()">
             <svg id="send-icon" viewBox="0 0 24 24">
@@ -1635,6 +1636,33 @@
       }
 
       /* ── Send ── */
+        let imagenSeleccionada = null;
+
+document.getElementById("image-input").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  imagenSeleccionada = file;
+
+  const imageUrl = URL.createObjectURL(file);
+  const preview = document.getElementById("image-preview");
+
+  preview.style.display = "block";
+  preview.innerHTML = `
+    <div style="display:flex; align-items:center; gap:10px; padding:8px; border:1px solid #333; border-radius:12px; background:#15151c;">
+      <img src="${imageUrl}" style="width:70px; height:70px; object-fit:cover; border-radius:10px;">
+      <span style="color:white; font-size:13px;">Imagen lista</span>
+      <button onclick="quitarImagen()" style="margin-left:auto; background:#333; color:white; border:none; border-radius:8px; padding:6px 10px; cursor:pointer;">X</button>
+    </div>
+  `;
+});
+
+function quitarImagen() {
+  imagenSeleccionada = null;
+  document.getElementById("image-input").value = "";
+  document.getElementById("image-preview").style.display = "none";
+  document.getElementById("image-preview").innerHTML = "";
+}
       async function enviar() {
           
     
