@@ -34,35 +34,33 @@ animation: flotar 2s ease-in-out infinite;
 
   .dog-mascot img{
     width: 50px;
-   animation: flotarMovil 2.5s ease-in-out infinite;
+    animation: flotarMovil 2s ease-in-out infinite;
   }
 
   @keyframes flotarMovil{
+    0%{
+      transform: translateY(0px);
+    }
 
-  0%{
-    transform: rotate(0deg);
-  }
+    50%{
+      transform: translateY(-8px);
+    }
 
-  20%{
-    transform: rotate(-2deg);
-  }
-
-  40%{
-    transform: rotate(2deg);
-  }
-
-  60%{
-    transform: rotate(-1deg);
-  }
-
-  80%{
-    transform: rotate(1deg);
-  }
-
-  100%{
-    transform: rotate(0deg);
+    100%{
+      transform: translateY(0px);
+    }
   }
 }
+@keyframes flotar{
+  0%,100%{
+    transform: translateY(0);
+  }
+
+  50%{
+    transform: translateY(-10px);
+  }
+}
+
 @keyframes bailarTikTok {
 
   0%{
