@@ -1478,26 +1478,29 @@ animation: flotar 2s ease-in-out infinite;
       });
 const dog = document.getElementById("dogMascot");
 
-function revisarPerrito(){
-
-  const hayMensajes =
-    document.querySelectorAll(".message").length > 0;
-
-  const escribiendo =
-    chatInput.value.trim().length > 0;
-
-  if(hayMensajes || escribiendo){
-    dog.style.display = "none";
-  } else {
-    dog.style.display = "block";
-  }
+function ocultarPerrito(){
+  dog.style.display = "none";
 }
 
-chatInput.addEventListener("input", revisarPerrito);
+function mostrarPerrito(){
+  dog.style.display = "block";
+}
 
-setInterval(revisarPerrito, 500);
+chatInput.addEventListener("input", () => {
+  if(chatInput.value.trim().length > 0){
+    ocultarPerrito();
+  } else {
+    mostrarPerrito();
+  }
+});
 
-chatInput.addEventListener("input", revisarPerrito);
+const enviarOriginal = enviar;
+
+enviar = function(){
+  ocultarPerrito();
+  enviarOriginal();
+};
+
       /* ── Sidebar (mobile) ── */
       function toggleSidebar() {
         document.getElementById("sidebar").classList.toggle("open");
