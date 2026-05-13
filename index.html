@@ -31,13 +31,24 @@ animation: flotar 2s ease-in-out infinite;
   animation: feliz 0.6s ease-in-out 4;
 }
 @media (max-width: 600px){
-  .dog-mascot{
-    right: 18px;
-    bottom: 125px;
-  }
 
   .dog-mascot img{
-    width: 75px;
+    width: 50px;
+    animation: flotarMovil 2s ease-in-out infinite;
+  }
+
+  @keyframes flotarMovil{
+    0%{
+      transform: translateY(0px);
+    }
+
+    50%{
+      transform: translateY(-8px);
+    }
+
+    100%{
+      transform: translateY(0px);
+    }
   }
 }
 @keyframes flotar{
@@ -1927,7 +1938,10 @@ document.getElementById("sidebar-list").classList.toggle("hidden-history");
 });
     </script>
   <div id="dogMascot" class="dog-mascot">
+<picture>
+  <source media="(max-width: 600px)" srcset="Png.png">
   <img src="Perrito.GIF" alt="Perrito Leyva AI">
+</picture>
 </div>
 <script>
   const dog = document.getElementById("dogMascot");
