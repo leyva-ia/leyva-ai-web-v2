@@ -19,8 +19,8 @@ animation: flotar 2s ease-in-out infinite;
 }
 
 .dog-mascot img{
-  width: 120px;
- filter: none; 
+  width: 95px;
+  filter: none;
 }
 
 .dog-mascot.bailando{
@@ -1476,7 +1476,17 @@ animation: flotar 2s ease-in-out infinite;
           enviar();
         }
       });
+const dog = document.getElementById("dogMascot");
 
+function revisarPerrito(){
+  if(chatInput.value.trim().length > 0){
+    dog.style.display = "none";
+  } else {
+    dog.style.display = "block";
+  }
+}
+
+chatInput.addEventListener("input", revisarPerrito);
       /* ── Sidebar (mobile) ── */
       function toggleSidebar() {
         document.getElementById("sidebar").classList.toggle("open");
