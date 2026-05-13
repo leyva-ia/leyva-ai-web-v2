@@ -1483,16 +1483,23 @@ function ocultarPerrito(){
 }
 
 function mostrarPerrito(){
-  dog.style.display = "block";
+  if(document.body.innerText.includes("Copiar")){
+    dog.style.display = "none";
+  } else {
+    dog.style.display = "block";
+  }
 }
 
 chatInput.addEventListener("input", () => {
-  if(chatInput.value.trim().length > 0){
+  if(chatInput.value.trim().length > 0 || document.body.innerText.includes("Copiar")){
     ocultarPerrito();
   } else {
     mostrarPerrito();
   }
 });
+
+setInterval(mostrarPerrito, 500);
+
 
 
 
