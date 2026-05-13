@@ -1480,7 +1480,11 @@ const dog = document.getElementById("dogMascot");
 chatInput.addEventListener("input", () => {
   dog.style.display = chatInput.value.trim() ? "none" : "block";
 });
-
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    dog.style.display = "none";
+  }
+});
 
 
 
