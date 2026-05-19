@@ -1937,25 +1937,22 @@ quitarImagen();
 document.getElementById("sidebar-list").classList.toggle("hidden-history");
 });
     </script>
-<div id="dogMascot" class="dog-mascot">
+<div id="dogMascot" class="dog-mascot" onclick="saludarPerrito()">
   <img id="dogImg" src="perrito.png" alt="Perrito Leyva AI">
 </div>
 
 <script>
-const dog = document.getElementById("dogMascot");
-const dogImg = document.getElementById("dogImg");
+function saludarPerrito() {
+  const dogImg = document.getElementById("dogImg");
 
-dog.addEventListener("click", () => {
-    alert("click funcionando");
   dogImg.src = "saludo.png";
 
   setTimeout(() => {
     dogImg.src = "perrito.png";
   }, 1200);
-});
+}
 </script>
 
-
 </body>
-    </html>
+</html>
 
