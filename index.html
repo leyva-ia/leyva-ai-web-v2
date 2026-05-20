@@ -1752,7 +1752,38 @@ chatInput.addEventListener("keydown", (e) => {
         document.getElementById("messages").replaceChild(row, thinkingRow);
         scrollToBottom();
       }
+function appendAiImage(imageSrc) {
+  const row = document.createElement("div");
+  row.className = "message-row";
 
+  row.innerHTML = `
+    <div class="msg-ai">
+      <div class="ai-avatar">
+        <svg viewBox="0 0 24 24">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+      </div>
+      <div class="ai-content">
+        <div class="ai-label">Leyva AI</div>
+        <div style="margin-top:10px;">
+          <img 
+            src="${imageSrc}" 
+            alt="Imagen generada"
+            style="max-width:320px; width:100%; border-radius:16px; display:block;"
+          >
+        </div>
+      </div>
+    </div>
+  `;
+
+  return row;
+}
+
+function replaceThinkingWithImage(thinkingRow, imageSrc) {
+  const row = appendAiImage(imageSrc);
+  document.getElementById("messages").replaceChild(row, thinkingRow);
+  scrollToBottom();
+}
       function replaceThinkingWithError(thinkingRow, msg) {
         const row = document.createElement("div");
         row.className = "message-row";
@@ -1892,26 +1923,49 @@ quitarImagen();
         spinner.className = "spinner-send";
         spinner.id = "spinner-send";
         btnSend.appendChild(spinner);
-
+const esSolicitudImagen =
+  /\b(crea|genera|haz|dibuja)\b/i.test(texto) &&
+  /\b(imagen|foto|dibujo|ilustracion|ilustración|poster|logo)\b/i.test(texto);
         const thinkingRow = appendThinking();
 
         try {
-          const res = await fetch(
-            "https://ideas-virales--LeyvaQuintana.replit.app/generar",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-  messages: conversationHistory
- 
-              })
-            }
-          );
+        const endpoint = esSolicitudImagen
+  ? "https://ideas-virales--LeyvaQuintana.replit.app/generar-imagen"
+  : "https://ideas-virales--LeyvaQuintana.replit.app/generar";
 
-          const data = await res.json();
-       const aiText = data?.respuesta;
-          const errorApi = data?.error;
+const payload = esSolicitudImagen
+  ? { prompt: texto }
+  : { messages: conversationHistory };
 
+const res = await fetch(endpoint, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload)
+});
+
+const data = await res.json();
+
+if (esSolicitudImagen) {
+  const imagenIA = data?.imagen;
+  const errorApi = data?.error;
+
+  if (imagenIA) {
+    replaceThinkingWithImage(thinkingRow, imagenIA);
+  } else if (errorApi) {
+    let msg = `Error (${res.status}): ${errorApi.message || "No se pudo generar la imagen."}`;
+    replaceThinkingWithError(thinkingRow, msg);
+  } else {
+    replaceThinkingWithError(thinkingRow, "Respuesta inesperada al generar la imagen.");
+  }
+
+  btnSend.disabled = false;
+  sendIcon.style.display = "block";
+  spinner.remove();
+  return;
+}
+
+const aiText = data?.respuesta;
+const errorApi = data?.error;
           if (aiText) {
             conversationHistory.push({ role: "assistant", content: aiText });
             replaceThinkingWithResponse(thinkingRow, aiText);
