@@ -1927,7 +1927,28 @@ const esSolicitudImagen =
   /\b(crea|genera|haz|dibuja)\b/i.test(texto) &&
   /\b(imagen|foto|dibujo|ilustracion|ilustración|poster|logo)\b/i.test(texto);
         const thinkingRow = appendThinking();
+if (esSolicitudImagen) {
+  const mensajeBeta =
+    "La generación de imágenes todavía está en fase beta en Leyva AI. Pronto estará disponible para crear imágenes directamente desde el chat. Por ahora puedo ayudarte a crear el prompt perfecto para usarlo en Gemini, Flow, Midjourney u otra IA de imágenes.";
 
+  conversationHistory.push({
+    role: "assistant",
+    content: mensajeBeta
+  });
+
+  replaceThinkingWithResponse(thinkingRow, mensajeBeta);
+  saveCurrentSession();
+
+  btnSend.disabled = false;
+
+  const sp = document.getElementById("spinner-send");
+  if (sp) sp.remove();
+
+  sendIcon.style.display = "";
+  chatInput.focus();
+
+  return;
+}
         try {
         const endpoint = esSolicitudImagen
   ? "https://ideas-virales--LeyvaQuintana.replit.app/generar-imagen"
